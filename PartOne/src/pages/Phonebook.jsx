@@ -3,16 +3,22 @@ import React, { useState } from "react";
 const Phonebook = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addName = (e) => {
     e.preventDefault();
 
-    const newNames = {
-      name: newName,
-    };
+    // Check if the name already exists in the array
+    const nameExists = persons.some((person) => person.name === newName);
 
-    setPersons(persons.concat(newNames))
-    setNewName("");
+    if (nameExists) {
+      setErrorMessage(`${newName} is already added to the phonebook.`);
+    } else {
+      const newPerson = { name: newName };
+      setPersons([...persons, newPerson]);
+      setNewName("");
+      setErrorMessage("");
+    }
   };
 
   const handleNameChange = (e) => {
@@ -32,8 +38,9 @@ const Phonebook = () => {
       </form>
       <h2>Numbers</h2>
       <div>
+        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
         {persons.map((person) => (
-          <p key={person.name}>{person.name} </p>
+          <p key={person.name}>{person.name}</p>
         ))}
       </div>
     </div>
