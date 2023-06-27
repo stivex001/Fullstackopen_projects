@@ -1,8 +1,16 @@
 import React from 'react'
 
-const Content = () => {
+const Content = ({parts}) => {
   return (
-    <div>Content</div>
+    <div>
+      {parts.map((part) => (
+        <div key={part.name}>
+          <p>{part.name} </p>
+          <span>{part.exercises}</span>
+        </div>
+        
+      ))}
+    </div>
   )
 }
 
