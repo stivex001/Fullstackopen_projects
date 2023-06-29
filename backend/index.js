@@ -28,6 +28,27 @@ let notes = [
     response.json(notes)
   })
 
+  app.get('/api/notes/:id', (req, res) => {
+    const id = Number(req.params.id)
+
+    const note = notes.find((note) => note.id === id)
+
+    if (note) {
+         res.json({message: 'success', note})
+    }
+    else {
+        res.status(404).json({message: "oops note not found"})
+    }
+   
+  })
+
+  app.delete('/api/notes/:id', (req, res) => {
+    const id = Number(req.params.id)
+    notes = notes.filter((note) => note.id !== id )
+
+    res.status(204).json({message: "note deleted successfully"})
+  })
+
 // PORT
 const PORT = process.env.PORT || 5000 ;
 
