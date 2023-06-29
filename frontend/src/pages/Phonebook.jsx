@@ -8,7 +8,7 @@ const peopleData = [
   { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
 ];
 
-const baseUrl = 'http://localhost:3001/api/notes'
+const baseUrl = '/api/notes'
 
 
 const Phonebook = () => {
