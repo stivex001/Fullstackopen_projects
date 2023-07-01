@@ -1,34 +1,42 @@
-import React, { useState } from "react";
-import axios from "axios"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const peopleData = [
-  { name: "Arto Hellas", number: "040-123456", id: 1 },
-  { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
-  { name: "Dan Abramov", number: "12-43-234345", id: 3 },
-  { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
-];
-
-const baseUrl = '/api/notes'
-
+const baseUrl = "http://localhost:8080/api/v1/people";
 
 const Phonebook = () => {
-  const [persons, setPersons] = useState(peopleData);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [filter, setFilter] = useState("");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(baseUrl);
+        setPersons(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log(persons.people);
+
+  const fecthedPeole = persons?.people;
+
   const addName = (e) => {
     e.preventDefault();
 
     // Check if the name already exists in the array
-    const nameExists = persons.some((person) => person.name === newName);
+    const nameExists = fecthedPeole.some((person) => person.name === newName);
 
     if (nameExists) {
       setErrorMessage(`${newName} is already added to the phonebook.`);
     } else {
       const newPerson = { name: newName, number: newNumber };
-      setPersons([...persons, newPerson]);
+      setPersons([...fecthedPeole, newPerson]);
       setNewName("");
       setErrorMessage("");
       setNewNumber("");
@@ -47,7 +55,7 @@ const Phonebook = () => {
     setFilter(e.target.value);
   };
 
-  const filteredPersons = persons.filter((person) =>
+  const filteredPersons = fecthedPeole?.filter((person) =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -77,7 +85,7 @@ const Phonebook = () => {
       <h2>Numbers</h2>
       <div>
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        {filteredPersons.map((person) => (
+        {filteredPersons?.map((person) => (
           <p key={person.name}>
             {person.name}-{person.number}{" "}
           </p>
