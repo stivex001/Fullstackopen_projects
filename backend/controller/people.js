@@ -20,8 +20,7 @@ export const addPeople = async (req, res) => {
     // creating a new person data
     const newPerson = await new People({ name, number }).save();
 
-    res.status(201).json({message: "Person created Successfully"})
-
+    res.status(201).json({ message: "Person created Successfully", newPerson });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
