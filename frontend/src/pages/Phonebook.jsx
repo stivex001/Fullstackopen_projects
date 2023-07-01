@@ -20,7 +20,7 @@ const Phonebook = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [persons]);
 
   console.log(persons.people);
 
