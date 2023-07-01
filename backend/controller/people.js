@@ -32,6 +32,7 @@ export const addPeople = async (req, res) => {
   }
 };
 
+// Geeting a single person
 export const getPerson = async (req, res) => {
   try {
     const id = req.params.id;
@@ -46,5 +47,21 @@ export const getPerson = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// Deleting a person
+export const deletePerson = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const person = await People.findByIdAndRemove(id);
+
+    if (person) {
+      res.status(204).json({ message: "person deleted successfully" });
+    } else {
+      res.status(404).json({ message: "person not found" });
+    }
+  } catch (error) {
+    next(error);
   }
 };
