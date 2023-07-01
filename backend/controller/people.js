@@ -65,3 +65,27 @@ export const deletePerson = async (req, res, next) => {
     next(error);
   }
 };
+
+// Updating person
+export const updatePerson = async (req, res, next) => {
+  const id = req.params.id;
+  const { name, number } = req.body;
+
+  try {
+    const updatedPerson = await People.findByIdAndUpdate(
+      id,
+      { name, number },
+      { new: true }
+    );
+
+    if (updatedPerson) {
+      res
+        .status(200)
+        .json({ message: "Person updated successfully", updatedPerson });
+    } else {
+      res.status(404).json({ message: "Person not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};

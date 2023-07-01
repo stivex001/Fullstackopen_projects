@@ -1,5 +1,5 @@
 import express from "express"
-import { addPeople, deletePerson, getPeople, getPerson } from "../controller/people.js"
+import { addPeople, deletePerson, getPeople, getPerson, updatePerson } from "../controller/people.js"
 
 const router = express.Router()
 
@@ -10,5 +10,7 @@ router.post("/addPerson", addPeople)
 router.get("/:id", getPerson)
 
 router.delete("/:id", deletePerson)
+
+router.put('/:id', updatePerson)
 
 export default router;
