@@ -31,3 +31,20 @@ export const addPeople = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getPerson = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const person = await People.findById(id);
+
+    if (person) {
+      res.status(200).json({ message: "success", person });
+    } else {
+      res.status(404).json({ message: "person not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
