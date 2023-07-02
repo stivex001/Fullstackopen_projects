@@ -1,39 +1,40 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import peopleRoute from "./routes/peopleRoute.js";
-import { errorHandler } from "./utils/error.js";
+/* eslint-disable no-undef */
+import express from "express"
+import mongoose from "mongoose"
+import cors from "cors"
+import dotenv from "dotenv"
+import peopleRoute from "./routes/peopleRoute.js"
+import { errorHandler } from "./utils/error.js"
 
-const app = express();
-dotenv.config();
+const app = express()
+dotenv.config()
 
 const dbConnect = () => {
   mongoose
     .connect(process.env.MONGO_URL)
     .then(() => {
-      console.log("Connected to DB successfully");
+      console.log("Connected to DB successfully")
     })
     .catch((err) => {
-      throw err;
-    });
-};
+      throw err
+    })
+}
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
 // ROUTES
-app.use("/api/v1/people", peopleRoute);
+app.use("/api/v1/people", peopleRoute)
 
-app.use(errorHandler);
+app.use(errorHandler)
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080
 
 app.listen(port, (err) => {
   if (err) {
-    console.log(err);
+    console.log(err)
   }
-  dbConnect();
-  console.log(`server successfully running on ${port}`);
-});
+  dbConnect()
+  console.log(`server successfully running on ${port}`)
+})
