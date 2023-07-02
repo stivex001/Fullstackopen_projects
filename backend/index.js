@@ -5,6 +5,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import peopleRoute from "./routes/peopleRoute.js"
 import { errorHandler } from "./utils/error.js"
+import logger from "./utils/logger.js"
 
 const app = express()
 dotenv.config()
@@ -36,5 +37,5 @@ app.listen(port, (err) => {
     console.log(err)
   }
   dbConnect()
-  console.log(`server successfully running on ${port}`)
+  logger.info(`server successfully running on ${port}`)
 })
