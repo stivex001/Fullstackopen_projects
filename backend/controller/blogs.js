@@ -15,10 +15,10 @@ export const getBlog = async (req, res) => {
 };
 
 export const addBlog = async (req, res) => {
-  const body = req.body;
+  const {title, author, url, likes} = req.body;
 
   try {
-    const blog = await new Blog(body).save;
+    const blog = await new Blog({title, author, url, likes}).save;
 
     res.status(201).json({ message: "blog created successfully", blog });
   } catch (error) {
