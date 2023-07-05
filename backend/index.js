@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from "dotenv"
 import peopleRoute from "./routes/peopleRoute.js"
+import blogRoute from "./routes/blogRoute.js"
 import { errorHandler } from "./utils/error.js"
 import logger from "./utils/logger.js"
 
@@ -27,6 +28,7 @@ app.use(express.json())
 
 // ROUTES
 app.use("/api/v1/people", peopleRoute)
+app.use("/api/v1/blog", blogRoute)
 
 app.use(errorHandler)
 

@@ -1,8 +1,8 @@
-import express from "express"
-import { getBlog } from "../controller/blogs"
+import express from "express";
+import { getBlog } from "../controller/blogs.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', getBlog)
+router.get("/", getBlog);
 
-export default router
+export default router;
