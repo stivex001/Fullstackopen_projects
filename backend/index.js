@@ -1,43 +1,49 @@
 /* eslint-disable no-undef */
-import express from "express"
-import mongoose from "mongoose"
-import cors from "cors"
-import dotenv from "dotenv"
-import peopleRoute from "./routes/peopleRoute.js"
-import blogRoute from "./routes/blogRoute.js"
-import { errorHandler } from "./utils/error.js"
-import logger from "./utils/logger.js"
+const express = require('express')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
-const app = express()
-dotenv.config()
+
+import peopleRoute from "./routes/peopleRoute";
+import blogRoute from "./routes/blogRoute";
+import { errorHandler } from "./utils/error";
+import logger from "./utils/logger";
+
+const app = express();
+dotenv.config();
+
+const MONGODB =
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_MONGO_URL
+    : process.env.MONGO_URL;
 
 const dbConnect = () => {
   mongoose
-    .connect(process.env.MONGO_URL)
+    .connect(MONGODB)
     .then(() => {
-      console.log("Connected to DB successfully")
+      console.log("Connected to DB successfully");
     })
     .catch((err) => {
-      throw err
-    })
-}
+      throw err;
+    });
+};
 
 // Middleware
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 // ROUTES
-app.use("/api/v1/people", peopleRoute)
-app.use("/api/v1/blog", blogRoute)
+app.use("/api/v1/people", peopleRoute);
+app.use("/api/v1/blog", blogRoute);
 
-app.use(errorHandler)
+app.use(errorHandler);
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
 app.listen(port, (err) => {
   if (err) {
-    console.log(err)
+    console.log(err);
   }
-  dbConnect()
-  logger.info(`server successfully running on ${port}`)
-})
+  dbConnect();
+  logger.info(`server successfully running on ${port}`);
+});

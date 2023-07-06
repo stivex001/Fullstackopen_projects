@@ -4,10 +4,10 @@
 	"description": "Backend of a blog app",
 	"main": "index.js",
 	"scripts": {
-		"start": " nodemon index.js",
-		"dev": "cross-env NODE_ENV=development nodemon index.js",
+		"start": "NODE_ENV=production node node index.js",
+		"dev": "NODE_ENV=development node index.js",
 		"lint": "eslint .",
-		"test": "jest --verbose"
+		"test": "NODE_ENV=test jest --verbose --runInBand"
 	},
 	"proxy": "http://localhost:5000",
 	"author": "",
