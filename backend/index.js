@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const express = require('express')
+require('express-async-errors')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
