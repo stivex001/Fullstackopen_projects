@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 const dummy = (blogs) => {
   // ...
-};
+}
 
-export default {
-  dummy,
-};
+module.exports = {
+  dummy
+}
