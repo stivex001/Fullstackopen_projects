@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+/* eslint-disable no-undef */
+const mongoose = require("mongoose");
 
 const peopleSchema = new mongoose.Schema(
   {
@@ -16,4 +17,4 @@ const peopleSchema = new mongoose.Schema(
 )
 
 const People = mongoose.model('People', peopleSchema)
-export default People
+module.exports = People;

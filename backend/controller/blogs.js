@@ -1,6 +1,7 @@
-import Blog from "../model/blog.js";
+/* eslint-disable no-undef */
+const Blog = require( "../model/blog");
 
-export const getBlog = async (req, res) => {
+exports.getBlog = async (req, res) => {
   try {
     const blog = await Blog.find();
 
@@ -14,7 +15,7 @@ export const getBlog = async (req, res) => {
   }
 };
 
-export const addBlog = async (req, res) => {
+exports.addBlog = async (req, res) => {
   const {title, author, url, likes} = req.body;
 
   try {

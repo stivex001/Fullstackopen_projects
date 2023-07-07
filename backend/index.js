@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
-const express = require('express')
-require('express-async-errors')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
+const express = require("express");
+require("express-async-errors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
-
-import peopleRoute from "./routes/peopleRoute";
-import blogRoute from "./routes/blogRoute";
-import { errorHandler } from "./utils/error";
-import logger from "./utils/logger";
+const peopleRoute = require("./routes/peopleRoute");
+const blogRoute = require("./routes/blogRoute");
+const { errorHandler } = require("./utils/error");
+const logger = require("./utils/logger");
 
 const app = express();
 dotenv.config();
@@ -18,33 +18,35 @@ const MONGODB =
     ? process.env.TEST_MONGO_URL
     : process.env.MONGO_URL;
 
-const dbConnect = () => {
-  mongoose
-    .connect(MONGODB)
-    .then(() => {
-      console.log("Connected to DB successfully");
-    })
-    .catch((err) => {
-      throw err;
-    });
+const dbConnect = async () => {
+  try {
+    await mongoose.connect(MONGODB);
+    console.log("Connected to DB successfully");
+  } catch (err) {
+    console.error("Failed to connect to DB:", err);
+    process.exit(1); // Exit the process or handle the error appropriately
+  }
 };
 
 // Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// ROUTES
+// Error handling middleware
+app.use(errorHandler);
+
+// Routes
 app.use("/api/v1/people", peopleRoute);
 app.use("/api/v1/blog", blogRoute);
 
-app.use(errorHandler);
-
 const port = process.env.PORT || 8080;
 
-app.listen(port, (err) => {
-  if (err) {
-    console.log(err);
+app.listen(port, async () => {
+  try {
+    await dbConnect();
+    logger.info(`Server successfully running on ${port}`);
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1); // Exit the process or handle the error appropriately
   }
-  dbConnect();
-  logger.info(`server successfully running on ${port}`);
 });

@@ -1,10 +1,11 @@
-import express from "express";
-import { addBlog, getBlog } from "../controller/blogs";
+/* eslint-disable no-undef */
+const express = require("express");
+const { addBlog, getBlog } = require("../controller/blogs");
 
 const router = express.Router();
 
 router.get("/", getBlog);
 
-router.post('/newblog', addBlog)
+router.post("/newblog", addBlog);
 
-export default router;
+module.exports = router;

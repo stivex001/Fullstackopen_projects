@@ -1,11 +1,12 @@
-import express from "express";
-import {
+/* eslint-disable no-undef */
+const express = require("express");
+const {
   addPeople,
   deletePerson,
   getPeople,
   getPerson,
   updatePerson,
-} from "../controller/people";
+} = require("../controller/people");
 
 const router = express.Router();
 
@@ -19,4 +20,4 @@ router.delete("/:id", deletePerson);
 
 router.put("/:id", updatePerson);
 
-export default router;
+module.exports = router;
