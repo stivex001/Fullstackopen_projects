@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const peopleRoute = require("./routes/peopleRoute");
 const blogRoute = require("./routes/blogRoute");
+const userRoute = require("./routes/userRoute");
 const { errorHandler } = require("./utils/error");
 const logger = require("./utils/logger");
 
@@ -38,6 +39,7 @@ app.use(errorHandler);
 // Routes
 app.use("/api/v1/people", peopleRoute);
 app.use("/api/v1/blog", blogRoute);
+app.use("/api/v1/users", userRoute);
 
 const port = process.env.PORT || 8080;
 
