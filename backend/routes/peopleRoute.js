@@ -1,16 +1,22 @@
-import express from "express"
-import { addPeople, deletePerson, getPeople, getPerson, updatePerson } from "../controller/people.js"
+import express from "express";
+import {
+  addPeople,
+  deletePerson,
+  getPeople,
+  getPerson,
+  updatePerson,
+} from "../controller/people";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', getPeople)
+router.get("/", getPeople);
 
-router.post("/addPerson", addPeople)
+router.post("/addPerson", addPeople);
 
-router.get("/:id", getPerson)
+router.get("/:id", getPerson);
 
-router.delete("/:id", deletePerson)
+router.delete("/:id", deletePerson);
 
-router.put('/:id', updatePerson)
+router.put("/:id", updatePerson);
 
-export default router
+export default router;
