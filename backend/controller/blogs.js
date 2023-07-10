@@ -17,7 +17,6 @@ exports.getBlog = async (req, res) => {
 
 exports.addBlog = async (req, res) => {
   const {title, author, url, likes} = req.body;
-
   try {
     const blog = await new Blog({title, author, url, likes}).save;
 
