@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const Blog = require( "../model/blog");
+const Blog = require("../model/blog");
 
 exports.getBlog = async (req, res) => {
   try {
@@ -16,11 +16,27 @@ exports.getBlog = async (req, res) => {
 };
 
 exports.addBlog = async (req, res) => {
-  const {title, author, url, likes} = req.body;
+  const { title, author, url, likes } = req.body;
   try {
-    const blog = await new Blog({title, author, url, likes}).save;
+    const blog = await new Blog({ title, author, url, likes }).save;
 
     res.status(201).json({ message: "blog created successfully", blog });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.deleteBlog = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const blog = await Blog.findByIdAndRemove(id);
+
+    if (blog) {
+      return res
+        .status(200)
+        .json({ message: `blog with id ${id} deleted successfully` });
+    }
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
