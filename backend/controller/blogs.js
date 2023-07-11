@@ -36,6 +36,31 @@ exports.deleteBlog = async (req, res) => {
       return res
         .status(200)
         .json({ message: `blog with id ${id} deleted successfully` });
+    } else {
+      return res.status(404).json({ message: "blog not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.updateBlog = async (req, res) => {
+  const id = req.params.id;
+  const { title, author, url } = req.body;
+
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { title, author, url },
+      { new: true }
+    );
+
+    if (updatedBlog) {
+      return res
+        .status(200)
+        .json({ message: "blog updated succesffully", updatedBlog });
+    } else {
+      return res.status(404).json({ message: "blog not found" });
     }
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
